@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerminalEpubComicToCbz", "TerminalEpubComicToCbz\TerminalEpubComicToCbz.csproj", "{FAA6AB56-BF3A-47E2-A5F7-B3009C0C9D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TerminalEpubComicToCbz", "TerminalEpubComicToCbz\TerminalEpubComicToCbz.csproj", "{FAA6AB56-BF3A-47E2-A5F7-B3009C0C9D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{1C075C8F-263A-418D-9213-6670E38B0B41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{1C075C8F-263A-418D-9213-6670E38B0B41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicInfo", "ComicInfo\ComicInfo.csproj", "{3237A367-9292-4BDD-BD1D-F1123C2C8EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1C075C8F-263A-418D-9213-6670E38B0B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C075C8F-263A-418D-9213-6670E38B0B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C075C8F-263A-418D-9213-6670E38B0B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3237A367-9292-4BDD-BD1D-F1123C2C8EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3237A367-9292-4BDD-BD1D-F1123C2C8EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3237A367-9292-4BDD-BD1D-F1123C2C8EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3237A367-9292-4BDD-BD1D-F1123C2C8EBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
