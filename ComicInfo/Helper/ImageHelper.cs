@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using SkiaSharp;
+using System.Drawing;
 
 namespace Chris82111.ComicInfo.Helper
 {
