@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicInfo", "ComicInfo\ComicInfo.csproj", "{3237A367-9292-4BDD-BD1D-F1123C2C8EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epub", "Epub\Epub.csproj", "{2306A023-63B2-4F6F-ACFF-BC58309F4FD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epub", "Epub\Epub.csproj", "{2306A023-63B2-4F6F-ACFF-BC58309F4FD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpubConvertion", "EpubConvertion\EpubConvertion.csproj", "{11C06A58-1900-4057-9E97-078014A71BE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2306A023-63B2-4F6F-ACFF-BC58309F4FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2306A023-63B2-4F6F-ACFF-BC58309F4FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2306A023-63B2-4F6F-ACFF-BC58309F4FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C06A58-1900-4057-9E97-078014A71BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C06A58-1900-4057-9E97-078014A71BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C06A58-1900-4057-9E97-078014A71BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C06A58-1900-4057-9E97-078014A71BE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
