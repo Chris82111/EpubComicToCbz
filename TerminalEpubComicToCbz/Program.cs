@@ -46,8 +46,7 @@ namespace Chris82111.TerminalEpubComicToCbz
 
             try
             {
-                var epub = new FileInfo(input);
-                using (var epubToCbz = new EpubComicToCbz(epub))
+                using (var epubToCbz = new EpubComicToCbz(input))
                 {
                     epubToCbz.Convert();
                 }

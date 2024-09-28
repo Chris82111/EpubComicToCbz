@@ -13,6 +13,8 @@ namespace Chris82111.Epub
         public string FullName => Epub?.FullName ?? "";
         public string DirectoryName => Epub?.DirectoryName ?? "";
 
+        public bool IsDisposed { get; private set; } = false;
+
         private FileInfo? Epub;
         private DirectoryInfo? EpubExtract;
         private DirectoryInfo? Oebps;
@@ -54,6 +56,7 @@ namespace Chris82111.Epub
         {
             EpubExtract?.Delete(true);
             EpubExtract = null;
+            IsDisposed = true;
         }
 
         public void CopyAllPictures(DirectoryInfo dir)
