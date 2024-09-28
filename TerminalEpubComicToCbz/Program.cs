@@ -1,7 +1,4 @@
-﻿using Chris82111.Domain.Helper;
-using Chris82111.EpubConvertion;
-using SkiaSharp;
-using System.Globalization;
+﻿using Chris82111.EpubConvertion;
 
 namespace Chris82111.TerminalEpubComicToCbz
 {
@@ -13,42 +10,75 @@ namespace Chris82111.TerminalEpubComicToCbz
 
         static void Help(string[] args)
         {
-            Console.WriteLine("usage: ./TerminalEpubComicToCbz [-h help] [-i input]");
-            Console.WriteLine("");
-            foreach (var arg in args)
+            var newLine = "\n";
+
+            var nameOfExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? System.AppDomain.CurrentDomain.FriendlyName;
+            nameOfExecutable = Path.GetFileName(nameOfExecutable);
+
+            Console.WriteLine(
+                $"usage: ./{nameOfExecutable} [-h help] [-i input]" + newLine +
+                "" + newLine +
+                "  -h, --help  : Shows this help" + newLine +
+                "  -i, --input : The input file or directory" + newLine
+            );
+
+            for (int i = 0; i < args.Length; i++)
             {
-                Console.WriteLine($"[{yellow}info{normal}] {arg}");
+                Console.WriteLine($"  args[{i}]: {args[i]}");
             }
         }
 
         static void Main(string[] args)
         {
-            var input = "";
-            for (int i = 0; i < args.Length; i++)
+            if (0 == args.Length)
             {
-                switch(args[i])
+                Help(args);
+                return;
+            }
+
+            var inputs = new List<string>();
+            for (int i = 0; i < args.Length; i++)
+            {                
+                switch (args[i])
                 {
                     case "-i":
                     case "--input":
                         if(++i < args.Length)
                         {
-                            input = args[i];
+                            inputs.Add(args[i]);
                         }
                         break;
+                    case "-?":
                     case "-h":
                     case "--help":
                         Help(args);
                         return;
+                    case "--":
+                        i = args.Length;
+                        break;
                     default:
+                        var search = "-i";
+                        if(search == args[i].Substring(0, search.Length))
+                        {
+                            inputs.Add(args[i].Substring(search.Length));
+                        }
+                        search = "--input";
+                        if (search == args[i].Substring(0, search.Length))
+                        {
+                            inputs.Add(args[i].Substring(search.Length));
+                        }
                         break;
                 }
             }
 
             try
             {
-                using (var epubToCbz = new EpubComicToCbz(input))
+                foreach(var input in inputs)
                 {
-                    epubToCbz.Convert();
+                    using (var epubToCbz = new EpubComicToCbz(input))
+                    {
+                        epubToCbz.Convert();
+                    }
                 }
             }
             catch(Exception ex)
