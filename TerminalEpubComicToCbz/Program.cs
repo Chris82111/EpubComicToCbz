@@ -4,6 +4,7 @@ namespace Chris82111.TerminalEpubComicToCbz
 {
     internal class Program
     {
+        // ANSI Escape Codes
         private static string red = Console.IsOutputRedirected ? "" : "\x1b[31m";
         private static string yellow = Console.IsOutputRedirected ? "" : "\x1b[0;33m";
         private static string normal = Console.IsOutputRedirected ? "" : "\x1b[0m"; 
@@ -16,16 +17,45 @@ namespace Chris82111.TerminalEpubComicToCbz
             nameOfExecutable = Path.GetFileName(nameOfExecutable);
 
             Console.WriteLine(
-                $"usage: ./{nameOfExecutable} [-h help] [-i input]" + newLine +
+                $"usage: ./{nameOfExecutable} [-h -? help] [-i input] [--]" + newLine +
                 "" + newLine +
-                "  -h, --help  : Shows this help" + newLine +
-                "  -i, --input : The input file or directory" + newLine
+                "  -h, -? --help : Shows this help" + newLine +
+                "  -i, --input   : The input file or directory" + newLine +
+                "  --            : Ends the input of commands" + newLine
             );
 
             for (int i = 0; i < args.Length; i++)
             {
                 Console.WriteLine($"  args[{i}]: {args[i]}");
             }
+        }
+
+        static string? ReadValue(string parameter, string search, Action<string>? handler = null)
+        {
+            string? value = null;
+            int argumentStart = search.Length;
+
+            if (search == parameter.Substring(0, argumentStart))
+            {
+                if (argumentStart < parameter.Length)
+                {
+                    if ("=" == parameter.Substring(argumentStart, 1))
+                    {
+                        argumentStart++;
+                        if (argumentStart < parameter.Length)
+                        {
+                            value = parameter.Substring(argumentStart);
+                            handler?.Invoke(value);
+                        }
+                    }
+                    else
+                    {
+                        value = parameter.Substring(argumentStart);
+                        handler?.Invoke(value);
+                    }
+                }
+            }
+            return value;
         }
 
         static void Main(string[] args)
@@ -57,16 +87,8 @@ namespace Chris82111.TerminalEpubComicToCbz
                         i = args.Length;
                         break;
                     default:
-                        var search = "-i";
-                        if(search == args[i].Substring(0, search.Length))
-                        {
-                            inputs.Add(args[i].Substring(search.Length));
-                        }
-                        search = "--input";
-                        if (search == args[i].Substring(0, search.Length))
-                        {
-                            inputs.Add(args[i].Substring(search.Length));
-                        }
+                        ReadValue(args[i], "-i",      (value) => inputs.Add(value));
+                        ReadValue(args[i], "--input", (value) => inputs.Add(value));
                         break;
                 }
             }
