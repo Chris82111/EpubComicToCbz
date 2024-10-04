@@ -16,7 +16,7 @@ namespace Chris82111.TerminalEpubComicToCbz
     <Exec Command="git describe --long --always --dirty --exclude=* --abbrev=8" ConsoleToMSBuild="True" IgnoreExitCode="False">
         <Output PropertyName="GetGitHash" TaskParameter="ConsoleOutput" />
     </Exec>
-    <Exec Command="git show --pretty=%25%25H" ConsoleToMSBuild="True" IgnoreExitCode="False">
+    <Exec Command="git rev-parse HEAD" ConsoleToMSBuild="True" IgnoreExitCode="False">
         <Output PropertyName="GetGitCommit" TaskParameter="ConsoleOutput" />
     </Exec>
     <Exec Command="git diff --quiet || echo Dirty &amp; exit 0" ConsoleToMSBuild="True" IgnoreExitCode="False">
