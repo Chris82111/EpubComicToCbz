@@ -23,6 +23,43 @@ namespace Chris82111.Domain.Enums
         public static readonly Dictionary<string, T> DisplayEnum = EnumDisplay
             .ToDictionary(x => x.Value, x => x.Key);
 
+        /// <summary>
+        /// <see href="https://stackoverflow.com/questions/5850873/enum-hasflag-why-no-enum-setflag"/>
+        /// </summary>
+        public static void WriteFlag(ref T value, T flag, bool set)
+        {
+            if (null == value || null == flag)
+            {
+                return;
+            }
+
+            Type underlyingType = Enum.GetUnderlyingType(value.GetType());
+
+            // note: AsInt mean: math integer vs enum (not the c# int type)
+            dynamic valueAsInt = Convert.ChangeType(value, underlyingType);
+            dynamic flagAsInt = Convert.ChangeType(flag, underlyingType);
+
+            if (set)
+            {
+                valueAsInt |= flagAsInt;
+            }
+            else
+            {
+                valueAsInt &= ~flagAsInt;
+            }
+
+            value = (T)valueAsInt;
+        }
+
+        public static void SetFlag(ref T value, T flag)
+        {
+            WriteFlag(ref value, flag, true);
+        }
+
+        public static void ClearFlag(ref T value, T flag)
+        {
+            WriteFlag(ref value, flag, false);
+        }
 
         private static object? GetPropValue(object src, string propName)
         {
