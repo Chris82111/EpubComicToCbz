@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,4 +13,45 @@
     <ProjectReference Include="..\EpubConvertion\EpubConvertion.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TerminalEpubComicToCbz.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="SetHash" AfterTargets="InitializeSourceControlInformation">
+
+    <Exec Command="git describe --long --always --dirty --exclude=* --abbrev=8" ConsoleToMSBuild="True" IgnoreExitCode="False">
+      <Output PropertyName="GetGitHash" TaskParameter="ConsoleOutput" />
+    </Exec>
+    <Exec Command="git rev-parse HEAD" ConsoleToMSBuild="True" IgnoreExitCode="False">
+      <Output PropertyName="GetGitCommit" TaskParameter="ConsoleOutput" />
+    </Exec>
+    <Exec Command="git diff --quiet || echo Dirty &amp; exit 0" ConsoleToMSBuild="True" IgnoreExitCode="False">
+      <Output PropertyName="GetDirty" TaskParameter="ConsoleOutput" />
+    </Exec>
+    <Exec Command="git config --get remote.origin.url" ConsoleToMSBuild="True" IgnoreExitCode="False">
+      <Output PropertyName="GetGitUrl" TaskParameter="ConsoleOutput" />
+    </Exec>
+
+    <ItemGroup>
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>GitHash</_Parameter1>
+        <_Parameter2>$(GetGitHash)</_Parameter2>
+      </AssemblyAttribute>
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>GitCommit</_Parameter1>
+        <_Parameter2>$(GetGitCommit)</_Parameter2>
+      </AssemblyAttribute>
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>GitDirty</_Parameter1>
+        <_Parameter2>$(GetDirty)</_Parameter2>
+      </AssemblyAttribute>
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>GitUrl</_Parameter1>
+        <_Parameter2>$(GetGitUrl)</_Parameter2>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
+  
 </Project>

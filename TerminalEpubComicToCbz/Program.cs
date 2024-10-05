@@ -1,33 +1,46 @@
-﻿using Chris82111.EpubConvertion;
+﻿using Chris82111.Domain.Terminal;
+using Chris82111.EpubConvertion;
 
 namespace Chris82111.TerminalEpubComicToCbz
 {
     internal class Program
     {
-        // ANSI Escape Codes
-        private static string red = Console.IsOutputRedirected ? "" : "\x1b[31m";
-        private static string yellow = Console.IsOutputRedirected ? "" : "\x1b[0;33m";
-        private static string normal = Console.IsOutputRedirected ? "" : "\x1b[0m"; 
+        public static string NewLine = "\n";
 
         static void Help(string[] args)
         {
-            var newLine = "\n";
+            var nameOfExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName
+                ?? System.AppDomain.CurrentDomain.FriendlyName;
 
-            var nameOfExecutable = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName ?? System.AppDomain.CurrentDomain.FriendlyName;
             nameOfExecutable = Path.GetFileName(nameOfExecutable);
+
+            var y = AnsiColor.TextColor.Yellow;
+            var n = AnsiColor.TextColor.Normal;
 
             // https://stackoverflow.com/questions/9725675/is-there-a-standard-format-for-command-line-shell-help-text
             Console.WriteLine(
-                $"usage: ./{nameOfExecutable} [--help] [<--input inputFile>] <inputFile>" + newLine +
-                "" + newLine +
-                "  --help, -h, -? : Shows this help" + newLine +
-                "  --input, -i,   : The input file or directory follows" + newLine
+                $"usage: ./{nameOfExecutable} [{y}--help{n}] [{y}--git{n}] [{y}--version{n}] [{y}--no-ansi{n}] [<{y}--input{n} inputFile>] <inputFile>" + NewLine +
+                "" + NewLine +
+                $"  {y}--help{n}, {y}-h{n}, {y}-?{n} : Shows this help" + NewLine +
+                $"  {y}--git{n}          : Shows information about the repository" + NewLine +
+                $"  {y}--version{n}      : Shows Git commit with 8 characters" + NewLine +
+                $"  {y}--no-ansi{n}      : Prevents the use of ANSI colors" + NewLine +
+                $"  {y}--input{n}, {y}-i{n},   : The input file or directory follows" + NewLine
             );
 
             for (int i = 0; i < args.Length; i++)
             {
                 Console.WriteLine($"  args[{i}]: {args[i]}");
             }
+        }
+        static void Git()
+        {
+            Console.WriteLine(
+                $"Url   : {AssemblyInfo.GitUrl}" + NewLine +
+                $"Hash  : {AssemblyInfo.GitHash}" + NewLine +
+                $"Commit: {AssemblyInfo.GitCommit}"
+            );
+            return;
         }
 
         /// <summary>
@@ -71,7 +84,12 @@ namespace Chris82111.TerminalEpubComicToCbz
 
         static void Main(string[] args)
         {
+            AnsiColor.EnableForWindows();
+
             var inputs = new List<string>();
+            bool help = false;
+            bool version = false;
+            bool git = false;
             for (int i = 0; i < args.Length; i++)
             {                
                 switch (args[i])
@@ -85,9 +103,12 @@ namespace Chris82111.TerminalEpubComicToCbz
                         break;
                     case "-?":
                     case "-h":
-                    case "--help":
-                        Help(args);
-                        return;
+                    case "--help": help = true; break;
+                    case "--version": version = true; break;
+                    case "--no-ansi":
+                        AnsiColor.UseAnsiColor = AnsiColor.UseAnsiColorState.No;
+                        break;
+                    case "--git": git = true; break;
                     default:
                         if(null != ReadValue(args[i], "-i",      (value) => inputs.Add(value))) { break; }
                         if(null != ReadValue(args[i], "--input", (value) => inputs.Add(value))) { break; }
@@ -96,6 +117,24 @@ namespace Chris82111.TerminalEpubComicToCbz
                 }
             }
             
+            if(true == help)
+            {
+                Help(args);
+                return;
+            }
+
+            if (true == git)
+            {
+                Git();
+                return;
+            }
+
+            if (true == version)
+            {
+                Console.WriteLine($"{AssemblyInfo.Version}-{AssemblyInfo.GitHash}");
+                return;
+            }
+
             if (0 == inputs.Count)
             {
                 Help(args);
@@ -116,7 +155,7 @@ namespace Chris82111.TerminalEpubComicToCbz
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"[{red}fail{normal}] {ex}");
+                Console.WriteLine($"[{AnsiColor.TextColor.Red}fail{AnsiColor.TextColor.Normal}] {ex}");
             }
         }
     }
