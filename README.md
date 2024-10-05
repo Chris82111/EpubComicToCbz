@@ -24,7 +24,7 @@ To run the application, enter the name followed by the parameters:
 ### Linux and Windos
 
 1. The correct runtime is necessary.
-1. A combined batch/shellscript file can be used. Name it like a Linux or Windows script file:
+1. A combined batch/shell script file can be used. Call it like a Linux or Windows script file:
 
    ```bash
    TerminalEpubComicToCbz.bat
