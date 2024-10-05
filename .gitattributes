@@ -1,0 +1,2 @@
+# Make sure that the batch/shaellscript file is checked out with LF line ends
+TerminalEpubComicToCbz/TerminalEpubComicToCbz.bat text eol=lf

@@ -13,6 +13,12 @@
     <ProjectReference Include="..\EpubConvertion\EpubConvertion.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TerminalEpubComicToCbz.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Target Name="SetHash" AfterTargets="InitializeSourceControlInformation">
 
     <Exec Command="git describe --long --always --dirty --exclude=* --abbrev=8" ConsoleToMSBuild="True" IgnoreExitCode="False">

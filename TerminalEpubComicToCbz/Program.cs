@@ -19,11 +19,12 @@ namespace Chris82111.TerminalEpubComicToCbz
 
             // https://stackoverflow.com/questions/9725675/is-there-a-standard-format-for-command-line-shell-help-text
             Console.WriteLine(
-                $"usage: ./{nameOfExecutable} [{y}--help{n}] [{y}--git{n}] [{y}--version{n}] [<{y}--input{n} inputFile>] <inputFile>" + NewLine +
+                $"usage: ./{nameOfExecutable} [{y}--help{n}] [{y}--git{n}] [{y}--version{n}] [{y}--no-ansi{n}] [<{y}--input{n} inputFile>] <inputFile>" + NewLine +
                 "" + NewLine +
                 $"  {y}--help{n}, {y}-h{n}, {y}-?{n} : Shows this help" + NewLine +
                 $"  {y}--git{n}          : Shows information about the repository" + NewLine +
-                $"  {y}--version{n}      : Shows git commit with 8 characters" + NewLine +
+                $"  {y}--version{n}      : Shows Git commit with 8 characters" + NewLine +
+                $"  {y}--no-ansi{n}      : Prevents the use of ANSI colors" + NewLine +
                 $"  {y}--input{n}, {y}-i{n},   : The input file or directory follows" + NewLine
             );
 
